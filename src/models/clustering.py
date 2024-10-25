@@ -10,7 +10,7 @@ class QuestionClustering:
         self.model = KMeans(n_clusters=n_clusters, random_state=42)
         self.best_n_clusters = None
 
-    def find_optimal_clusters(self, X, max_clusters=100):
+    def get_optimal_clusters(self, X, max_clusters=30):
         """Find the best number of clusters using the silhouette score."""
         best_score = -1
         for n_clusters in range(2, max_clusters + 1):
@@ -24,7 +24,7 @@ class QuestionClustering:
                 self.best_n_clusters = n_clusters
 
         LOGGER.info(f"Best number of clusters: {self.best_n_clusters}, Score: {best_score:.4f}")
-        return self.best_n_clusters
+        # return self.best_n_clusters
 
     def fit(self, X):
         """Fit the KMeans model using the optimal number of clusters."""
