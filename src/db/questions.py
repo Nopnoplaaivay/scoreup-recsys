@@ -33,11 +33,13 @@ class QuestionsCollection:
                 chapter = question['chapter']
                 difficulty = f"{question['difficulty']:.2f}"
                 tag_name = question['properties']['tags']['multi_select'][0]['name']
+                content = question['properties']['question']['rich_text'][0]['plain_text']
                 data.append({
                     'question_id': question_id,
                     'chapter': chapter,
                     'difficulty': difficulty,
-                    'concept': tag_name
+                    'concept': tag_name,
+                    'content': content
                 })
 
             df = pd.DataFrame(data)

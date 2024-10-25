@@ -10,7 +10,7 @@ class QuestionClustering:
         self.model = KMeans(n_clusters=n_clusters, random_state=42)
         self.best_n_clusters = None
 
-    def find_optimal_clusters(self, X, max_clusters=10):
+    def find_optimal_clusters(self, X, max_clusters=100):
         """Find the best number of clusters using the silhouette score."""
         best_score = -1
         for n_clusters in range(2, max_clusters + 1):
