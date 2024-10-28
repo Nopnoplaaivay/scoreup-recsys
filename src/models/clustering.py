@@ -10,24 +10,22 @@ class QuestionClustering:
         self.model = KMeans(n_clusters=n_clusters, random_state=42)
         self.best_n_clusters = None
 
-    def get_optimal_clusters(self, X, max_clusters=30):
+    def get_optimal_clusters(self, X, max_clusters=50):
         """Find the best number of clusters using the silhouette score."""
         best_score = -1
         for n_clusters in range(2, max_clusters + 1):
             model = KMeans(n_clusters=n_clusters, random_state=42)
             labels = model.fit_predict(X)
             score = silhouette_score(X, labels)
-            LOGGER.info(f"Number of clusters: {n_clusters}, Silhouette Score: {score:.4f}")
+            # LOGGER.info(f"Number of clusters: {n_clusters}, Silhouette Score: {score:.4f}")
 
             if score > best_score:
                 best_score = score
                 self.best_n_clusters = n_clusters
 
-        LOGGER.info(f"Best number of clusters: {self.best_n_clusters}, Score: {best_score:.4f}")
-        # return self.best_n_clusters
+        # LOGGER.info(f"Best number of clusters: {self.best_n_clusters}, Score: {best_score:.4f}")
 
     def fit(self, X):
-        """Fit the KMeans model using the optimal number of clusters."""
         if self.best_n_clusters is None:
             LOGGER.warning("Best number of clusters not found. Running with default.")
         else:
@@ -37,9 +35,7 @@ class QuestionClustering:
         LOGGER.info("Clustering model training completed.")
 
     def predict(self, X):
-        """Predict cluster labels for new data."""
         return self.model.predict(X)
 
     def get_cluster_centers(self):
-        """Get the coordinates of cluster centers."""
         return self.model.cluster_centers_

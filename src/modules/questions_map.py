@@ -23,5 +23,9 @@ class QuestionsMap:
         cluster_labels = self.clustering_model.predict(X)
         questions_df['cluster'] = cluster_labels
 
+        # print(questions_df[['question_id', 'chapter', 'concept', 'content', 'cluster']].head(30))
+
+        question_map = questions_df.set_index('question_id')['cluster'].to_dict()
         cluster_map = questions_df.groupby('cluster')['question_id'].apply(list).to_dict()
-        return cluster_map
+
+        return question_map, cluster_map
